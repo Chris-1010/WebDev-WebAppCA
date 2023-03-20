@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block main_content %}
+
+<main id="all_orders">
+    <h1 class="title">All Orders</h1>
+
+
+    <table>
+        <tr>
+            <th>Order ID</th>
+            <th>Username</th>
+            <th>Date</th>
+            <th>Vehicle</th>
+        </tr>
+        {% for order in order_information %}
+        <tr>
+            <td>{{order['order_id']}}</td>
+            <td>{{order['username']}}</td>
+            <td>{{order['date']}}</td>
+            <td>
+                <img src={{url_for('static', filename=order['model'] ~ '.webp')}} />
+                <h2>{{order['brand']}} {{order['model']}}</h2>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+        
+    </section>
+</main>
+
+{% endblock %}

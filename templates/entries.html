@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% block main_content %}
+
+{% if mode == "edit" %}
+<main id="edit_entries">
+    <h1 class="title">Edit Entries</h1>
+
+    <section id="entries">
+        {% for entry in entries %}
+                <section>
+                        <img src="{{url_for('static', filename=entry['model'] ~ '.webp')}}" />
+                    <form method="POST" action="" novalidate>
+                        {{ form.hidden_tag() }}
+                        <input type="hidden" name="vehicle_id" value={{entry['id']}}>
+                        
+                        {{ form.brand_name.label }}
+                        {{ form.brand_name(value=entry['brand'], disabled=true)}}
+
+                        {{ form.model.label }}
+                        {{ form.model(value=entry['model'], disabled=true)}}
+
+                        {{ form.type_name.label }}
+                        {{ form.type_name(value=entry['type'], disabled=true)}}
+
+                        {{ form.production_year.label }}
+                        {{ form.production_year(value=entry['production_year'], disabled=true)}}
+
+                        {{ form.engine_size.label }}
+                        {{ form.engine_size(value=entry['engine_size'][:-1], disabled=true)}}
+
+                        {{ form.market_value.label }}
+                        {{ form.market_value(value=entry['market_value'], disabled=true)}}
+
+                        {{ form.edit(disabled=true) }}
+
+                        <img id="editing" src="{{url_for('static', filename='edit.png')}}" onclick="edit_field()"/>
+                    </form>
+                </section>
+        {% endfor %}
+    </section>
+</main>
+
+
+
+{% elif mode == "add" %}
+<main id="add_entry">
+    <h1 class="title">Add New Entry</h1>
+
+
+    <form method="POST" action="" novalidate>
+        {{ form.hidden_tag() }}
+        
+        {{ form.brand_name(placeholder="Brand")}}
+
+        {{ form.model(placeholder="Model")}}
+
+        {{ form.type_name(placeholder="Type")}}
+
+        {{ form.production_year(placeholder="Production Year")}}
+
+        {{ form.engine_size(placeholder="Engine Size (L)")}}
+
+        {{ form.market_value(placeholder="Market Value (€)")}}
+
+        {{ form.image() }}
+
+        {{ form.add(disabled=true) }}
+    </form>
+    
+</main>
+
+
+{% endif %}
+
+{% endblock %}

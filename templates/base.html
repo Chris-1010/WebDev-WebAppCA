@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <title>All Terrain Motors</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='styles.css') }}" />
+    <link rel="icon" href="{{url_for('static', filename='ATM.png')}}" />
+</head>
+
+<body>
+    <header>
+        <nav>
+
+            
+            <a href="{{url_for('browse')}}">Browse</a>
+
+            <section id="abbreviated_logo">
+                <img id="A" src="{{url_for('static', filename='A.png')}}" />
+                <img id="T" src="{{url_for('static', filename='T.png')}}" />
+                <img id="M" src="{{url_for('static', filename='M.png')}}" />
+            </section>
+
+            <section id="full_logo">
+                <img src="{{url_for('static', filename='Logo.png')}}" />
+            </section>
+
+            <p><i>Your destination for cars and savings!</i></p>            
+            
+            <a id="watchlist" href="{{ url_for('watchlist')}}"><img src="{{url_for('static', filename='watchlist.png')}}" title="Watchlist" alt="Watchlist" /></a>
+            
+            {% if g.user %}
+                <p id="account">Logged in as <em>{{g.name}}</em><br><a href="{{url_for('account')}}">Account</a></p>
+            {% else %}
+                <a id="account" href="{{ url_for('login') }}">Login/Register</a>
+            {% endif %}
+            
+
+        </nav>
+
+        <section id="background">
+            <img src="{{url_for('static', filename='bg' ~ g.random ~'.jpg')}}"/>
+        </section>
+    </header>
+    {% block main_content %}
+
+    {% endblock %}
+
+    <footer>
+        <p>All images obtained using appropriate creative commons license.</p>
+    </footer>
+    
+    <script src="{{url_for('static', filename='script.js')}}"></script>
+</body>
+
+</html>

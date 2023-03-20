@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% block main_content %}
+
+
+
+
+<main id="browse">
+    <form method="POST" action="#listings" novalidate>
+        {{ form.hidden_tag() }}
+
+        <h1 id="welcome">Welcome!</h1>
+
+        {{ form.type() }}
+        
+        {{ form.brand() }}
+
+        {{ form.price_range() }}
+
+        {{ form.sort_by.label }}
+        {{ form.sort_by() }}
+
+        {{ form.submit() }}
+    </form>
+
+    {% if "recently_viewed" in session %}
+    <section id="hidden_recently_viewed" class="recently_viewed">
+        {% for details in session["recently_viewed"] %}
+            <section>
+                <a href="{{ session["recently_viewed"][details]["url"] }}">
+                    <img src="{{url_for('static', filename=session["recently_viewed"][details]["model"]) ~ '.webp'}}"/>
+                    <h1>{{session["recently_viewed"][details]["brand"]}} {{session["recently_viewed"][details]["model"]}}</h1>
+                </a>
+            </section>
+        {% endfor %}
+        <img src="{{url_for('static', filename='arrow.png')}}" onclick="toggle_recently_viewed()"/>
+    </section>
+    {% endif %}
+
+
+
+    {% if entries %}
+
+        <section id="listings">
+
+            {% for entry in entries %}
+                <section>
+                    <!-- <a href="/details/{{entry['id']}}#details_main"> -->
+                        <a href="{{url_for('vehicle_details', id=entry['id'])}}">
+
+                        <img src="{{url_for('static', filename=entry['model'] ~ '.webp')}}" />
+                        <h3>{{entry['brand']}} {{entry['model']}}</h3>
+                    </a>
+                    <ul>
+                        <li>€{{"{:,}".format(entry['market_value'])}}</li>
+                        <li>{{entry['production_year']}}</li>
+                        <li>{{entry['engine_size']}}</li>
+                    </ul>
+                </section>
+            {% endfor %}
+
+
+        </section>
+
+    {% endif %}
+    
+</main>
+
+{% endblock %}

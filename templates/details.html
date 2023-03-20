@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block main_content %}
+
+<main id="details_main">
+    <a class="action" href="{{url_for('add_to_watchlist', id=details['id'])}}">
+        {% if watchlist_details['watchlist'] == None %}
+            Add to Watchlist
+        {% elif (details['id']|string) in watchlist_details['watchlist'] or ("-" ~ details['id']) in watchlist_details['watchlist'] or (details['id'] ~ "-") in watchlist_details['watchlist'] %}
+            Add to Watchlist  ✅
+        {% else %}
+            Add to Watchlist
+        {% endif %}
+        </a>
+
+    <h1>{{ details['brand'] }} {{ details['model'] }}</h1>
+
+    <a class="action" href="{{url_for('checkout', id=details['id'])}}">Buy Now</a>
+
+    <section>
+
+        <img src=" {{url_for('static', filename=details['model'] ~ '.webp')}} " />
+
+        <h2 class="detail" style="--order: 1">Type</h2>
+        <h3 class="value" style="--order: 1">{{details['type']}}</h3>
+
+        <h2 class="detail" style="--order: 2">Year</h2>
+        <h3 class="value" style="--order: 2">{{details['production_year']}}</h3>
+
+        <h2 class="detail" style="--order: 3">Engine Size</h2>
+        <h3 class="value" style="--order: 3">{{details['engine_size']}}</h3>
+
+        <h2 class="detail" style="--order: 4">Price</h2>
+        <h3 class="value" style="--order: 4">€{{"{:,}".format(details['market_value'])}}</h3>
+
+    </section>
+
+
+
+</main>
+
+{% endblock %}

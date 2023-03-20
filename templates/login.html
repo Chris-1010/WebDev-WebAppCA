@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" id="login_page">
+
+<head>
+    <meta charset="utf-8" />
+    <title>All Terrain Motors</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='styles.css') }}" />
+    <link rel="icon" href="{{url_for('static', filename='ATM.png')}}" />
+</head>
+
+<body onload="CheckProblemField()">
+
+    <main id="login_register">
+        <a href="{{ url_for('browse') }}"><img src="{{url_for('static', filename='exit.png')}}" /></a>
+
+        <section>
+            <form method="POST" action="" novalidate>
+                <h1>Login</h1>
+                {{ form.hidden_tag() }}
+
+                {{ form.username.label }}
+                {{ form.username() }}
+                    
+                {{ form.password.label }}
+                {{ form.password() }}
+                    
+
+                {{ form.login_button() }}
+            </form>
+
+        </section>
+
+    {% for error in form.username.errors %}
+        <p id='username_error' class="error">{{ error }}</p>
+    {% endfor %}
+
+    {% for error in form.password.errors %}
+        <p id="password_error" class='error'>{{ error }}</p>
+    {% endfor %}
+
+    <p>Don't have an account?<br><a href="{{ url_for('register') }}">Register</a></p>
+
+    </main>
+
+    <script src="{{url_for('static', filename='script.js')}}"></script>
+</body>
+
+</html>

@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+{% block main_content %}
+
+<main id="account_page" onload="CheckProblemField()">
+    <section id="tabs">
+        <h1>Account</h1>
+        <h2 onclick="show_profile()">Profile</h2>
+        <h2 onclick="show_orders()">Your Orders</h2>
+        <h2 onclick="show_admin_settings()">Admin Settings</h2>
+        <a href="{{url_for('watchlist')}}">Watchlist</h2>
+            <a href="{{url_for('logout')}}">Logout</a>
+    </section>
+
+    <section id="content">
+
+
+        <section id="user_details">
+            <h1>Logged in as {{name}}</h1>
+        </section>
+
+
+        <form id="profile" method="POST" action="#profile" novalidate>
+            {{ form.hidden_tag() }}
+
+            <h1 class="title">Profile</h1>
+
+            {{ form.updated_name.label }}
+            <section id="name_field">
+                {{ form.updated_name(value=name, disabled=true) }}
+                <img src="{{url_for('static', filename='edit.png')}}" title="Edit Name" />
+            </section>
+
+            {{ form.updated_username.label }}
+            <section id="username_field">
+                {{ form.updated_username(value=username, disabled=true)}}
+                <img src="{{url_for('static', filename='edit.png')}}" title="Edit Username" />
+            </section>
+
+            {{ form.updated_password.label }}
+            <section id="password_field">
+                {{ form.updated_password(disabled=true) }}
+                <img src="{{url_for('static', filename='edit.png')}}" title="Edit Password" />
+            </section>
+
+            <h2>Admin</h2>
+            <h2>{% if admin == "true" %}
+                <b style="color:lime">Yes</b>
+                <a onclick="show_admin_settings()">Admin Settings</a>
+                {% else %}
+                <b style="color:red">No</b>
+                {% endif %}
+            </h2>
+
+
+            <section>
+                {{ form.current_password() }}
+
+                {{ form.save_changes() }}
+            </section>
+
+        </form>
+        {% for error in form.updated_username.errors %}
+            <p id='username_error' class="error">{{ error }}</p>
+        {% endfor %}
+
+        {% for error in form.current_password.errors %}
+            <p id="password_error" class="error">{{error}}</p>
+        {% endfor %}
+
+        <section id="orders">
+            <h1 class="title">Your Orders</h1>
+            <table>
+                <tr>
+                    <th>Order ID</th>
+                    <th>Date</th>
+                    <th>Vehicle</th>
+                </tr>
+                {% for order in order_information %}
+                <tr>
+                    <td>{{order['order_id']}}</td>
+                    <td>{{order['date']}}</td>
+                    <td>
+                        <img src={{url_for('static', filename=order['model'] ~ '.webp' )}} />
+                        <h2>{{order['brand']}} {{order['model']}}</h2>
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
+        </section>
+
+        <section id="admin_settings">
+            {% if admin == "false" %}
+            <h1>Sorry, but you do not have administrative permissions.</h1>
+            {% else %}
+
+            <h1 class="title">Admin Settings</h1>
+
+                <a href="{{url_for('view_orders')}}">View All Orders</a>
+                <a href="{{url_for('edit_entries', mode="add")}}">Insert New Entry</a>
+                <a href="{{url_for('edit_entries', mode="edit")}}">Edit Entries</a>
+                
+           
+
+            {% endif %}
+        </section>
+    </section>
+</main>
+
+
+{% endblock %}

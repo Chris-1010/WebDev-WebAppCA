@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block main_content %}
+
+<main id="watchlist_page">
+
+    <h1 class="title">Watchlist</h1>
+
+    <section id="my_watchlist">
+        {% if "watchlist" in session and session["watchlist"]|length > 0 %} <!-- |length is a jinja2 filter -->
+        {% for entry in session["watchlist"] %}
+        <section>
+            <a href="{{ url_for('vehicle_details', id=session['watchlist'][entry]["id"]) }}">
+                <img src="{{url_for('static', filename=session["watchlist"][entry]["model"] ~ '.webp' )}}" />
+                <h1>{{session["watchlist"][entry]["brand"]}} {{session["watchlist"][entry]["model"]}}</h1>
+            </a>
+
+            <h2>€{{"{:,}".format(session["watchlist"][entry]["market_value"])}}</h2>
+            <h2>{{session["watchlist"][entry]["type"]}}</h2>
+            <h2>{{session["watchlist"][entry]["production_year"]}}</h2>
+            <h2>{{session["watchlist"][entry]["engine_size"]}}itre</h2>
+
+            <section id="options">
+                <button type="button" value="off" onclick="compare(event)">Compare</button>
+
+                <form method="POST" action="{{url_for('checkout', id=session["watchlist"][entry]["id"])}}" novalidate>
+                    <button type="submit">Buy</button>
+                </form>
+
+                <a href="{{url_for("remove_from_watchlist", id=session["watchlist"][entry]["id"])}}"><img src="{{url_for('static', filename="remove.png")}}" title="Remove from Watchlist" /></a>
+            </section>
+        </section>
+        {% endfor %}
+    </section>
+
+    {% else %}
+    <h3>Add vehicles to your watchlist <a id="add_to_watchlist" href="{{url_for('browse')}}">here</a>.</h3>
+    <h2>Your watchlist is empty!</h2>
+    
+    {% endif %}
+</main>
+
+
+
+{% endblock %}

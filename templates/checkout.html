@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block main_content %}
+
+<main id="checkout">
+
+{% if ordered == False %}
+    <h1 class="title">Checkout</h1>
+    <section id="vehicle_preview">
+    <img src="{{url_for('static', filename=vehicle['model'] + '.webp')}}" />
+    <h1>{{vehicle['brand']}} {{vehicle['model']}}</h1>
+
+    <section id="details">
+        <h2 class="detail">Type</h2>
+        <h3 class="value">{{vehicle['type']}}</h3>
+
+        <h2 class="detail">Year</h2>
+        <h3 class="value">{{vehicle['production_year']}}</h3>
+
+        <h2 class="detail">Engine Size</h2>
+        <h3 class="value">{{vehicle['engine_size']}}</h3>
+
+        <h2 class="detail">Price</h2>
+        <h3 class="value">€{{"{:,}".format(vehicle['market_value'])}}</h3>
+
+    </section>
+</section>
+<form method="POST" action="" novalidate>
+    <canvas></canvas>
+    {{ form.hidden_tag() }}
+    {{ form.place_order() }}
+</form>
+{% else %}
+    <h1 id="ordered_message">Order Placed</h1>
+
+    <section id="new_car">
+        <h1>You Are Now The New Owner Of A {{vehicle['brand']}} {{vehicle['model']}}!!!</h1>
+        <img src="{{url_for('static', filename=vehicle['model'] + '.webp')}}" />
+    </section>
+{% endif %}
+
+</main>
+
+{% endblock %}
