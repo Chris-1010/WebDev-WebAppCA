@@ -1,23 +1,3 @@
-''' 
-Hello Derek, welcome to my continuous assessment project. It is based on a car dealership website where you can investigate various vehicles and choose one that's right for you.
-
-I suggest you turn on word wrap when viewing this code as it tends to get quite lengthy in some parts
-
-The following are some key features of this app that I believe are particularly worth taking a look at:
-    ⚪ A filter form on the home page to narrow down a search for a specific vehicle, including a sort by field
-    ⚪ A recently viewed tab which sits at the side of the homepage's screen. It updates every time you visit a new vehicle's details page. This feature does not require a user to be logged in.
-    ⚪ A watchlist which displays the added vehicles' details in a compact form.
-    ⚪ An account page which enables a user to change their name, username, or password.
-    ⚪ An administration page, allowing admin users to view all orders placed, remove users, and suggest new entries into the database.
-
-I have implemented an admin login which requires a user to enter an admin code on registration.
-Admin code: 3q5h9
-
-
-A moderate amount of javascript was used when developing this app. Most of its code was learned from looking ahead on the slides at the time of development along with some research from the official documentation @ https://developer.mozilla.org/en-US/docs/Web/JavaScript
-
-'''
-
 from flask import Flask, render_template, redirect, session, url_for, request, g
 from forms import browse_form, login_form, register_form, edit_user_details, checkout_form, entry_form
 from database import get_db, close_db
