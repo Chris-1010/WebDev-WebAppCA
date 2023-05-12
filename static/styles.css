@@ -566,7 +566,7 @@ html[id="login_page"], html[id="register_page"] {
 }
 
 #register_page main {
-    background: url(/static/bg2.jpg) no-repeat;
+    background: url(/static/bg2.webp) no-repeat;
     background-size: cover;
 }
 #register_page .recently_viewed {
@@ -585,7 +585,7 @@ html[id="login_page"], html[id="register_page"] {
 
 main[id="login_register"] {
     display: flex;
-    background: url(/static/bg3.jpg) no-repeat;
+    background: url(/static/bg3.webp) no-repeat;
     background-size: cover;
     
     justify-content: center;
@@ -817,7 +817,7 @@ section > form > #register_button {
 }
 
 body:has(#my_watchlist) {
-    background-image: url(bg1.jpg);
+    background-image: url(bg1.webp);
     background-size: cover;
 }
 
