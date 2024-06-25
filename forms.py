@@ -15,7 +15,7 @@ class browse_form(FlaskForm):
 class login_form(FlaskForm):
     username = StringField("Username",
         validators = [InputRequired()])
-    password = PasswordField("Password",
+    password = PasswordField("Password", render_kw={"autocomplete": "current-password"},
         validators = [InputRequired()])
     login_button = SubmitField("Login")
 

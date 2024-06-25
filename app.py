@@ -172,7 +172,7 @@ def register():
         else:
             db.execute("INSERT INTO credentials (name, username, password, admin) VALUES (?, ?, ?, ?);", (name, username, generate_password_hash(password), admin))
             db.commit()  # Save the database
-            return redirect( url_for("login"))
+            return redirect(url_for("login"))
     return render_template("register.html", form=form)
 
 
